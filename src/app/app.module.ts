@@ -14,7 +14,6 @@ import { PastTraningComponent } from './training/past-traning/past-traning.compo
 import { WelcomeComponent } from './welcome/welcome.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
-
 @NgModule({
   declarations: [
     AppComponent,
