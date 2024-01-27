@@ -37,3 +37,8 @@ a:active {
   justify-content: space-between;
   align-items: center;
 }
+
+.nav-caption {
+  display: inline-block;
+  /* padding-right: 6px; */
+}
