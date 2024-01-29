@@ -1,0 +1,21 @@
+import {
+   Component, 
+   EventEmitter, 
+   Output,
+   Input
+} from '@angular/core';
+
+@Component({
+  selector: 'app-header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.css']
+})
+
+export class HeaderComponent {
+  @Input() isMobile = false
+  @Output() sidenavToggle = new EventEmitter<void>()
+
+  onToggleSidenav() {
+    this.sidenavToggle.emit()
+  }
+}

@@ -1,0 +1,28 @@
+a {
+  text-decoration: none;
+  color: white;
+}
+
+a:hover,
+a:active {
+  color: #ccc;
+}
+
+.toobar-menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Navigation desktop links*/
+.nav-links-container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.nav-links-container > div {
+  width: 20%;
+  display: flex;
+  justify-content: space-around;
+}

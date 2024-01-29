@@ -1,43 +1,11 @@
 <mat-sidenav-container>
   <mat-sidenav #sidenav role="navigation">
-    <mat-nav-list *ngIf="isMobile">
-      <a mat-list-item routerLink="/signup" (click)="sidenav.close()">
-        <mat-icon>face</mat-icon>
-        <span class="nav-caption">Signup</span>
-      </a>
-      <a mat-list-item routerLink="/login" (click)="sidenav.close()">
-        <mat-icon>input</mat-icon>
-        <span class="nav-caption">Login</span>
-      </a>
-      <a mat-list-item routerLink="/training" (click)="sidenav.close()">
-        <mat-icon>fitness_center</mat-icon>
-        <span class="nav-caption">Training</span>
-      </a>
-      <mat-list-item>
-        <button class="btn-logout" (click)="sidenav.close()">
-          <mat-icon>eject</mat-icon>
-          <span class="nav-caption">Logout</span>
-        </button>
-      </mat-list-item>
-    </mat-nav-list>
+    <app-sidenav-list (sidenavClose)="sidenav.close()" [isMobile]="isMobile"></app-sidenav-list>
   </mat-sidenav>
     <mat-sidenav-content>
-      <mat-toolbar color="primary">
-        <div class="toobar-menu">
-          <button mat-icon-button (click)="sidenav.toggle()" *ngIf="isMobile">
-            <mat-icon>menu</mat-icon>
-          </button>
-          <div>Logo</div>
-        </div>
-        <div class="nav-links-container" *ngIf="!isMobile">
-          <div>
-            <a routerLink="/signup">Signup</a>
-            <a routerLink="/login">Login</a>
-            <a routerLink="/training">Training</a>
-            <a routerLink="/logout">Logout</a>
-          </div>
-        </div>
-      </mat-toolbar>
-      <router-outlet></router-outlet>
+      <app-header [isMobile]="isMobile" (sidenavToggle)="sidenav.toggle()"></app-header>
+      <main>
+        <router-outlet></router-outlet>
+      </main>
     </mat-sidenav-content>
 </mat-sidenav-container>
