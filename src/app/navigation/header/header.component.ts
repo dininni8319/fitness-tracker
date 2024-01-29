@@ -2,8 +2,8 @@ import {
    Component, 
    EventEmitter, 
    Output,
-   Input
 } from '@angular/core';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
   selector: 'app-header',
@@ -12,10 +12,20 @@ import {
 })
 
 export class HeaderComponent {
-  @Input() isMobile = false
+  isDesktop = false
   @Output() sidenavToggle = new EventEmitter<void>()
+
+  constructor(
+    private deviceService: DeviceDetectorService
+  ) {
+    this.checkDevice();
+  };
 
   onToggleSidenav() {
     this.sidenavToggle.emit()
+  }
+
+  checkDevice() {
+    this.isDesktop = this.deviceService.isDesktop();
   }
 }

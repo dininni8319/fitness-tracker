@@ -1,11 +1,11 @@
 <mat-toolbar color="primary">
   <div class="toobar-menu">
-    <button mat-icon-button (click)="onToggleSidenav()" *ngIf="isMobile">
+    <button mat-icon-button (click)="onToggleSidenav()" *appIsMobile>
       <mat-icon>menu</mat-icon>
     </button>
     <div>Logo</div>
   </div>
-  <div class="nav-links-container" *ngIf="!isMobile">
+  <div class="nav-links-container" *ngIf="isDesktop">
     <div>
       <a routerLink="/signup">Signup</a>
       <a routerLink="/login">Login</a>

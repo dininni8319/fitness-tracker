@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
   selector: 'app-root',
@@ -9,20 +8,10 @@ import { DeviceDetectorService } from 'ngx-device-detector';
 
 export class AppComponent {
   openedSideNav = false;
-  isMobile = false
   
   toggle() {
 
   };
 
-  constructor(
-    private deviceService: DeviceDetectorService
-  ) {
-    this.checkDevice();
-  };
-
-  checkDevice() {
-    this.isMobile = this.deviceService.isMobile();
-  }
-
+  constructor() {};
 }

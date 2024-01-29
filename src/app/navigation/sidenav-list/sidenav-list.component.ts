@@ -1,6 +1,5 @@
 import { 
   Component,
-  Input, 
   Output,
   EventEmitter
 } from '@angular/core';
@@ -12,10 +11,9 @@ import {
 })
 
 export class SidenavListComponent {
-  @Input() isMobile = false
   @Output() sidenavClose = new EventEmitter<void>()
 
-  onToggleSidenav() {
+  onClose() {
     this.sidenavClose.emit()
   }
 }
