@@ -10,13 +10,13 @@ import { LoginComponent } from './auth/login/login.component';
 import { TrainingComponent } from './training/training.component';
 import { CurrentTraningComponent } from './training/current-traning/current-traning.component';
 import { NewTraningComponent } from './training/new-traning/new-traning.component';
-import { PastTraningComponent } from './training/past-traning/past-traning.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HeaderComponent } from './navigation/header/header.component';
 import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component';
 import { IsMobileDirective } from './is-mobile.directive';
 import { IsDesktopDirective } from './is-desktop.directive';
+import { PastTrainingComponent } from './training/past-training/past-training.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +30,8 @@ import { IsDesktopDirective } from './is-desktop.directive';
     HeaderComponent,
     SidenavListComponent,
     IsMobileDirective,
-    IsDesktopDirective
+    IsDesktopDirective,
+    PastTrainingComponent
   ],
   imports: [
     BrowserModule,
