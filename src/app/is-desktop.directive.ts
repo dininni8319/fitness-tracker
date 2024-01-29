@@ -9,7 +9,7 @@ import { DeviceDetectorService } from 'ngx-device-detector';
 @Directive({
   selector: '[appIsDesktop]'
 })
-export class IsDesktopDirective {
+export class IsDesktopDirective implements OnInit {
 
   constructor(
     private deviceService: DeviceDetectorService,

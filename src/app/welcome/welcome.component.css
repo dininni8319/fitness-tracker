@@ -1,0 +1,20 @@
+.welcome {
+  height: 30vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding-top: 0.650rem;
+}
+
+.welcome > section {
+  text-align: center;
+  margin: 0 0.650rem;
+}
+
+@media (max-width: 768px) {
+  .welcome {
+    height: 60vh;
+    flex-direction: column;
+  }
+}
