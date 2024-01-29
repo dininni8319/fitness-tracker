@@ -16,6 +16,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HeaderComponent } from './navigation/header/header.component';
 import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component';
 import { IsMobileDirective } from './is-mobile.directive';
+import { IsDesktopDirective } from './is-desktop.directive';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { IsMobileDirective } from './is-mobile.directive';
     WelcomeComponent,
     HeaderComponent,
     SidenavListComponent,
-    IsMobileDirective
+    IsMobileDirective,
+    IsDesktopDirective
   ],
   imports: [
     BrowserModule,

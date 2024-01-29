@@ -1,16 +1,15 @@
 import { 
-  Directive, 
-  OnInit, 
-  TemplateRef, 
+  Directive,
+  OnInit,
+  TemplateRef,
   ViewContainerRef
-} from '@angular/core';
+ } from '@angular/core';
 import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Directive({
-  selector: '[appIsMobile]'
+  selector: '[appIsDesktop]'
 })
-
-export class IsMobileDirective implements OnInit {
+export class IsDesktopDirective {
 
   constructor(
     private deviceService: DeviceDetectorService,
@@ -24,10 +23,11 @@ export class IsMobileDirective implements OnInit {
 
   // add and remove the element from the DOM
   checkDevice() {
-    if (this.deviceService.isMobile()) {
+    if (this.deviceService.isDesktop()) {
       this.viewContainer.createEmbeddedView(this.templateRef);
     }  else {
       this.viewContainer.clear();
     }
   }
+
 }
