@@ -1,0 +1,21 @@
+.new-training {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+mat-card {
+  width: 30%;
+  height: 400px;
+  text-align: center;
+}
+
+.space {
+  padding: 1rem 0;
+}
+
+@media (max-width: 768px) { 
+  mat-card {
+    width: 100%;
+  }
+}

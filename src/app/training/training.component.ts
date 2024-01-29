@@ -5,6 +5,7 @@ import { Component } from '@angular/core';
   templateUrl: './training.component.html',
   styleUrls: ['./training.component.css']
 })
-export class TrainingComponent {
 
+export class TrainingComponent {
+  ongoingTraining = false;
 }

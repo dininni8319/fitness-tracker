@@ -39,7 +39,7 @@ import { PastTrainingComponent } from './training/past-training/past-training.co
     BrowserAnimationsModule, 
     MaterialModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
