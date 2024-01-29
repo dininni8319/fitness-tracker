@@ -1,4 +1,6 @@
-mat-sidenav-container, mat-sidenav-content, mat-sidenav {
+mat-sidenav-container, 
+mat-sidenav-content, 
+mat-sidenav {
   height: 100%;
 }
 
@@ -6,7 +8,7 @@ mat-sidenav {
   width: 200px;
 }
 
-div, button {
+div {
   margin-left: 10px;
 }
 
@@ -17,9 +19,15 @@ mat-toolbar {
 }
 
 .nav-links-container {
+  width: 100%;
   display: flex;
-  justify-content: space-between;
-  width: 200px;
+  justify-content: flex-end;
+}
+
+.nav-links-container > div {
+  width: 20%;
+  display: flex;
+  justify-content: space-around;
 }
 
 a {
@@ -32,13 +40,25 @@ a:active {
   color: #ccc;
 }
 
+mat-icon {
+  vertical-align: middle;
+}
+
+.nav-caption {
+  padding-left: 5px;
+}
+
 .toobar-menu {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.nav-caption {
-  display: inline-block;
-  /* padding-right: 6px; */
+.btn-logout {
+  background: none;
+  border: none;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  padding-left: 0px;
 }

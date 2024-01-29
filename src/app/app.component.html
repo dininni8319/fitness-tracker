@@ -1,6 +1,6 @@
 <mat-sidenav-container>
   <mat-sidenav #sidenav role="navigation">
-    <mat-nav-list>
+    <mat-nav-list *ngIf="isMobile">
       <a mat-list-item routerLink="/signup" (click)="sidenav.close()">
         <mat-icon>face</mat-icon>
         <span class="nav-caption">Signup</span>
@@ -14,7 +14,7 @@
         <span class="nav-caption">Training</span>
       </a>
       <mat-list-item>
-        <button mat-icon-button (click)="sidenav.close()">
+        <button class="btn-logout" (click)="sidenav.close()">
           <mat-icon>eject</mat-icon>
           <span class="nav-caption">Logout</span>
         </button>
@@ -24,17 +24,18 @@
     <mat-sidenav-content>
       <mat-toolbar color="primary">
         <div class="toobar-menu">
-          <button mat-icon-button (click)="sidenav.toggle()">
+          <button mat-icon-button (click)="sidenav.toggle()" *ngIf="isMobile">
             <mat-icon>menu</mat-icon>
           </button>
           <div>Logo</div>
         </div>
-        <div></div>
-        <div class="nav-links-container">
-          <a routerLink="/signup">Signup</a>
-          <a routerLink="/login">Login</a>
-          <a routerLink="/training">Training</a>
-          <a routerLink="/logout">Logout</a>
+        <div class="nav-links-container" *ngIf="!isMobile">
+          <div>
+            <a routerLink="/signup">Signup</a>
+            <a routerLink="/login">Login</a>
+            <a routerLink="/training">Training</a>
+            <a routerLink="/logout">Logout</a>
+          </div>
         </div>
       </mat-toolbar>
       <router-outlet></router-outlet>
