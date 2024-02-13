@@ -17,6 +17,7 @@ import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.com
 import { IsMobileDirective } from './is-mobile.directive';
 import { IsDesktopDirective } from './is-desktop.directive';
 import { PastTrainingComponent } from './training/past-training/past-training.component';
+import { StopTrainingComponent } from './training/current-traning/stop-training.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { PastTrainingComponent } from './training/past-training/past-training.co
     SidenavListComponent,
     IsMobileDirective,
     IsDesktopDirective,
-    PastTrainingComponent
+    PastTrainingComponent, 
+    StopTrainingComponent
   ],
   imports: [
     BrowserModule,
@@ -44,4 +46,5 @@ import { PastTrainingComponent } from './training/past-training/past-training.co
   providers: [],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }
