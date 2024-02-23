@@ -18,6 +18,7 @@ import { IsMobileDirective } from './is-mobile.directive';
 import { IsDesktopDirective } from './is-desktop.directive';
 import { PastTrainingComponent } from './training/past-training/past-training.component';
 import { StopTrainingComponent } from './training/current-traning/stop-training.component';
+import { AuthService } from './auth/auth.service';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,7 @@ import { StopTrainingComponent } from './training/current-traning/stop-training.
     ReactiveFormsModule,
     FormsModule,
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 
