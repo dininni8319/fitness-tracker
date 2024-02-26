@@ -9,6 +9,6 @@
     <a *ngIf="!isAtuh" routerLink="/signup">Signup</a>
     <a *ngIf="!isAtuh" routerLink="/login">Login</a>
     <a *ngIf="isAtuh" routerLink="/training">Training</a>
-    <a *ngIf="isAtuh" routerLink="/logout">Logout</a>
+    <a *ngIf="isAtuh" style="cursor: pointer;" (click)="onLogout()" routerLink="/logout">Logout</a>
   </div>
 </mat-toolbar>

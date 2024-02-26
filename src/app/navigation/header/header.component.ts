@@ -42,6 +42,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.isDesktop = this.deviceService.isDesktop();
   }
 
+  onLogout() {
+    this.authService.logout();
+  }
+
   ngOnDestroy(): void {
     this.authSubscripion.unsubscribe();  // clears up unneeded memory
   }
