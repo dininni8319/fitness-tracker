@@ -1,9 +1,13 @@
 import {
    Component, 
    EventEmitter, 
+   OnInit, 
    Output,
+   OnDestroy
 } from '@angular/core';
 import { DeviceDetectorService } from 'ngx-device-detector';
+import { AuthService } from 'src/app/auth/auth.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -11,15 +15,24 @@ import { DeviceDetectorService } from 'ngx-device-detector';
   styleUrls: ['./header.component.css']
 })
 
-export class HeaderComponent {
-  isDesktop = false
+export class HeaderComponent implements OnInit, OnDestroy {
+  isDesktop = false;
+  isAtuh = false;
+  authSubscripion!: Subscription;
   @Output() sidenavToggle = new EventEmitter<void>()
 
   constructor(
-    private deviceService: DeviceDetectorService
+    private deviceService: DeviceDetectorService,
+    private authService: AuthService
   ) {
     this.checkDevice();
   };
+
+  ngOnInit() {
+    this.authService.authChange.subscribe(authStatus => {
+      this.isAtuh = authStatus;
+    });
+  }
 
   onToggleSidenav() {
     this.sidenavToggle.emit()
@@ -27,5 +40,9 @@ export class HeaderComponent {
 
   checkDevice() {
     this.isDesktop = this.deviceService.isDesktop();
+  }
+
+  ngOnDestroy(): void {
+    this.authSubscripion.unsubscribe();  // clears up unneeded memory
   }
 }

@@ -6,11 +6,9 @@
     <div>Logo</div>
   </div>
   <div class="nav-links-container" *appIsDesktop>
-    <div>
-      <a routerLink="/signup">Signup</a>
-      <a routerLink="/login">Login</a>
-      <a routerLink="/training">Training</a>
-      <a routerLink="/logout">Logout</a>
-    </div>
+    <a *ngIf="!isAtuh" routerLink="/signup">Signup</a>
+    <a *ngIf="!isAtuh" routerLink="/login">Login</a>
+    <a *ngIf="isAtuh" routerLink="/training">Training</a>
+    <a *ngIf="isAtuh" routerLink="/logout">Logout</a>
   </div>
 </mat-toolbar>
