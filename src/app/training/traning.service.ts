@@ -4,7 +4,7 @@ import { Subject } from "rxjs";
 
 @Injectable()
 export class TrainingService {
-  exerciseChanged = new Subject<Exercise>();
+  exerciseChanged = new Subject<Exercise | null>();
 
   private availableExercises: Exercise[] = [
     { id: 'crunches', name: 'Crunches', duration: 30, calories: 8 },
@@ -13,7 +13,8 @@ export class TrainingService {
     { id: 'burpees', name: 'Burpees', duration: 60, calories: 8 }
   ];
 
-  private runningExercise!: Exercise;
+  private runningExercise!: Exercise | null;
+  private execirses: Exercise[] = [];
 
   getAvailableExercises() {
     return this.availableExercises.slice(); // Return a copy of the array to prevent modifications
@@ -25,5 +26,38 @@ export class TrainingService {
       this.runningExercise = selectedExercise; 
       this.exerciseChanged.next({...this.runningExercise});
     }
+  }
+  completeExercise() {
+    if (this.runningExercise) {
+      this.execirses.push({
+        ...this.runningExercise, 
+        date: new Date(), 
+        state: 'completed'
+      });
+      this.runningExercise = null;
+      this.exerciseChanged.next(null); 
+    }
+  }
+
+  cancelExercice(progress: number) {
+    if (this.runningExercise) {
+      this.execirses.push({
+        ...this.runningExercise,
+        duration: this.runningExercise.duration * (progress / 100),
+        calories: this.runningExercise.calories * (progress / 100),
+        date: new Date(), 
+        state: 'cancelled'
+      });
+      this.runningExercise = null;
+      this.exerciseChanged.next(null); 
+    }
+  }
+
+  getRunningExercise() {
+    return {...this.runningExercise}; // Return a copy of the object to prevent modifications
+  }
+
+  getCompletedOrCancelledExercises() {
+    return this.execirses.slice();
   }
 }
