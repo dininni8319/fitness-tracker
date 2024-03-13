@@ -9,7 +9,7 @@ export class TrainingService {
   private exerciseSubscriptions: Subscription[] = [];
 
   constructor(private db: AngularFirestore) {}
-
+  fineshedExercisesChanged = new Subject<Exercise[] | null>();
   exerciseChanged = new Subject<Exercise | null>();
   exercisesChanged = new Subject<Exercise[] | null>();
 
@@ -49,12 +49,8 @@ export class TrainingService {
   }
 
   startExercise(selectedId: string) {
-
     const selectedExercise = this.availableExercises.find(el => {
-      console.log(el, selectedId);
-      
       return el.id === selectedId;
-    
     });
     
     if (selectedExercise) {
@@ -65,7 +61,7 @@ export class TrainingService {
 
   completeExercise() {
     if (this.runningExercise) {
-      this.exercises.push({
+      this.addDataToFirebase({
         ...this.runningExercise, 
         date: new Date(), 
         state: 'completed'
@@ -77,7 +73,7 @@ export class TrainingService {
 
   cancelExercise(progress: number) {
     if (this.runningExercise) {
-      this.exercises.push({
+      this.addDataToFirebase({
         ...this.runningExercise,
         duration: this.runningExercise.duration * (progress / 100),
         calories: this.runningExercise.calories * (progress / 100),
@@ -93,11 +89,17 @@ export class TrainingService {
     return {...this.runningExercise}; // Return a copy of the object to prevent modifications
   }
 
-  getCompletedOrCancelledExercises() {
-    return this.exercises.slice();
+  fetchCompletedOrCancelledExercises() {
+    return this.db.collection('finishedExercises').valueChanges().subscribe(exercises => {
+      this.fineshedExercisesChanged.next(exercises as Exercise[]);
+    })
   }
 
   ngOnDestroy() {
     this.exerciseSubscriptions.forEach(subscription => subscription.unsubscribe());
+  }
+
+  private addDataToFirebase(exercise: Exercise) {
+    this.db.collection('finishedExercises').add(exercise);
   }
 }
