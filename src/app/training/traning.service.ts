@@ -1,35 +1,71 @@
 import { Exercise } from "./exercise.model";
 import { Injectable } from "@angular/core";
-import { Subject } from "rxjs";
+import { Subject, Subscription } from "rxjs";
+import { map } from 'rxjs/operators';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 @Injectable()
 export class TrainingService {
+  private exerciseSubscriptions: Subscription[] = [];
+
+  constructor(private db: AngularFirestore) {}
+
   exerciseChanged = new Subject<Exercise | null>();
+  exercisesChanged = new Subject<Exercise[] | null>();
 
-  private availableExercises: Exercise[] = [
-    { id: 'crunches', name: 'Crunches', duration: 30, calories: 8 },
-    { id: 'touch-toes', name: 'Touch Toes', duration: 180, calories: 15 },
-    { id: 'side-lunges', name: 'Side Lunges', duration: 120, calories: 18 },
-    { id: 'burpees', name: 'Burpees', duration: 60, calories: 8 }
-  ];
+  private availableExercises: Exercise[] = [];
+  private runningExercise: Exercise | null = null;
+  private exercises: Exercise[] = [];
 
-  private runningExercise!: Exercise | null;
-  private execirses: Exercise[] = [];
+  fetchAvailableExercises() {
+    const exerciseSubscription = this.db
+      .collection('availableExercises')
+      .snapshotChanges()
+      .pipe(
+        map((docArray: any[]) => {
+          return docArray.map((doc: any) => {
+            return {
+              id: doc.payload.doc.id,
+              name: doc.payload.doc.data().name,
+              duration: doc.payload.doc.data().duration,
+              calories: doc.payload.doc.data().calories
+            }
+          })
+        })
+      )
+      .subscribe(
+        (exercises: Exercise[]) => {
+          console.log(exercises);
+          this.availableExercises = exercises;
+          this.exercisesChanged.next([...this.availableExercises]);
+        },
+        (error: any) => {
+          console.error('Error fetching available exercises:', error);
+          // Handle the error appropriately (e.g., show an error message to the user)
+        }
+      );
 
-  getAvailableExercises() {
-    return this.availableExercises.slice(); // Return a copy of the array to prevent modifications
+    this.exerciseSubscriptions.push(exerciseSubscription);
   }
 
   startExercise(selectedId: string) {
-    const selectedExercise = this.availableExercises.find(el => el.id === selectedId);
+
+    const selectedExercise = this.availableExercises.find(el => {
+      console.log(el, selectedId);
+      
+      return el.id === selectedId;
+    
+    });
+    
     if (selectedExercise) {
       this.runningExercise = selectedExercise; 
       this.exerciseChanged.next({...this.runningExercise});
     }
   }
+
   completeExercise() {
     if (this.runningExercise) {
-      this.execirses.push({
+      this.exercises.push({
         ...this.runningExercise, 
         date: new Date(), 
         state: 'completed'
@@ -39,9 +75,9 @@ export class TrainingService {
     }
   }
 
-  cancelExercice(progress: number) {
+  cancelExercise(progress: number) {
     if (this.runningExercise) {
-      this.execirses.push({
+      this.exercises.push({
         ...this.runningExercise,
         duration: this.runningExercise.duration * (progress / 100),
         calories: this.runningExercise.calories * (progress / 100),
@@ -58,6 +94,10 @@ export class TrainingService {
   }
 
   getCompletedOrCancelledExercises() {
-    return this.execirses.slice();
+    return this.exercises.slice();
+  }
+
+  ngOnDestroy() {
+    this.exerciseSubscriptions.forEach(subscription => subscription.unsubscribe());
   }
 }

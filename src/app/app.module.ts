@@ -20,6 +20,10 @@ import { PastTrainingComponent } from './training/past-training/past-training.co
 import { StopTrainingComponent } from './training/current-traning/stop-training.component';
 import { AuthService } from './auth/auth.service';
 import { TrainingService } from './training/traning.service';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { firebaseConfig } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -44,6 +48,9 @@ import { TrainingService } from './training/traning.service';
     MaterialModule,
     ReactiveFormsModule,
     FormsModule,
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireAuthModule,
+    AngularFirestoreModule,
   ],
   providers: [AuthService, TrainingService],
   bootstrap: [AppComponent]
