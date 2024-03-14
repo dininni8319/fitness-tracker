@@ -16,9 +16,10 @@ export class TrainingService {
   private availableExercises: Exercise[] = [];
   private runningExercise: Exercise | null = null;
   private exercises: Exercise[] = [];
+  private fbSubs: Subscription[] = []; 
 
   fetchAvailableExercises() {
-    const exerciseSubscription = this.db
+    this.fbSubs.push(this.db
       .collection('availableExercises')
       .snapshotChanges()
       .pipe(
@@ -40,15 +41,15 @@ export class TrainingService {
           this.exercisesChanged.next([...this.availableExercises]);
         },
         (error: any) => {
-          console.error('Error fetching available exercises:', error);
+          // console.error('Error fetching available exercises:', error);
           // Handle the error appropriately (e.g., show an error message to the user)
         }
-      );
-
-    this.exerciseSubscriptions.push(exerciseSubscription);
+      ))
   }
 
   startExercise(selectedId: string) {
+    // use doc to get the id of the document in the collection
+    this.db.doc('availableExercises/' + selectedId).update({lastSelected: new Date()});
     const selectedExercise = this.availableExercises.find(el => {
       return el.id === selectedId;
     });
@@ -89,10 +90,14 @@ export class TrainingService {
     return {...this.runningExercise}; // Return a copy of the object to prevent modifications
   }
 
+  cancelSubscriptions() {
+    this.fbSubs.forEach(sub=> sub.unsubscribe());
+  }
+  
   fetchCompletedOrCancelledExercises() {
-    return this.db.collection('finishedExercises').valueChanges().subscribe(exercises => {
+    this.fbSubs.push(this.db.collection('finishedExercises').valueChanges().subscribe(exercises => {
       this.fineshedExercisesChanged.next(exercises as Exercise[]);
-    })
+    }))
   }
 
   ngOnDestroy() {

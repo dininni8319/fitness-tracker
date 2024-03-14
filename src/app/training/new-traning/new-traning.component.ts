@@ -21,7 +21,7 @@ import { Observable, Subscription } from 'rxjs';
 export class NewTraningComponent implements OnInit, OnDestroy {
   exercises!:Exercise[] | null;
   exerciseSubscription: Subscription = new Subscription();
-
+  isLoading = true;
   constructor(private traningService: TrainingService) {};
 
   @Output() trainingStart = new EventEmitter<void>();
@@ -33,12 +33,15 @@ export class NewTraningComponent implements OnInit, OnDestroy {
   }
   
   ngOnInit(): void { 
-    //  get the data from firestore db     
+    // get the data from firestore db     
     //valueChanges give us an observable
     this.exerciseSubscription = this.traningService.exercisesChanged.subscribe(
-      exercises => (this.exercises = exercises)
+      exercises => {
+        this.exercises = exercises
+        this.isLoading = false
+      }
     );
-      this.traningService.fetchAvailableExercises();
+    this.traningService.fetchAvailableExercises();
   }
 
   ngOnDestroy() {

@@ -45,7 +45,21 @@
     </mat-form-field>
      <!-- checkbox works stand alone no need for mat-form-field -->
     <mat-checkbox required name="agree" color="primary">Agree to Terms and Conditions</mat-checkbox>
-    <button [disabled]="f.invalid" class="btn-singup-form" type="submit" mat-raised-button color="primary">Submit</button>
+    <button 
+      [disabled]="f.invalid" 
+      class="btn-singup-form" 
+      type="submit" 
+      mat-raised-button
+      *ngIf="!isLoading"
+      color="primary">
+      Submit
+    </button>
+    <mat-spinner
+      *ngIf="isLoading"
+      [diameter]="30"
+      [strokeWidth]="4"
+      color="white"
+    ></mat-spinner>
   </form>
 </section>
 

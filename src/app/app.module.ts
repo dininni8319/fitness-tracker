@@ -21,9 +21,10 @@ import { StopTrainingComponent } from './training/current-traning/stop-training.
 import { AuthService } from './auth/auth.service';
 import { TrainingService } from './training/traning.service';
 import { AngularFireModule } from '@angular/fire/compat';
-import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { firebaseConfig } from 'src/environments/environment';
+import { UIService } from './shared/ui.service';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,7 @@ import { firebaseConfig } from 'src/environments/environment';
     AngularFireAuthModule,
     AngularFirestoreModule,
   ],
-  providers: [AuthService, TrainingService],
+  providers: [AuthService, TrainingService, UIService],
   bootstrap: [AppComponent]
 })
 
