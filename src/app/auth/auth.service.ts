@@ -17,7 +17,6 @@ export class AuthService {
     private router: Router,
     private afAuth: AngularFireAuth,
     private trainingService: TrainingService,
-    private snackBar: MatSnackBar,
     private uiService: UIService
   ) {}
 
@@ -43,14 +42,11 @@ export class AuthService {
     ).then(result => {
       console.log(result);
       this.uiService.loadingStateChanged.next(false);
-      this.snackBar.open(
-        'User registered successfully', 
-        'Close', 
-        { duration: 2000}
-      );
+      this.uiService.showErrorSnackbar('User registered successfully', 'Close', 2000);
+  
     }).catch(error => {
       this.uiService.loadingStateChanged.next(false);
-      this.showErrorSnackbar(error.message || 'An unknown error occurred!');
+      this.uiService.showErrorSnackbar(error.message, 'Close', 2000);
       console.log(error);
     });
     // this.user = {
@@ -67,15 +63,11 @@ export class AuthService {
     ).then(result => {
       console.log("🚀 ~ AuthService ~ login ~ result:", result)
       this.uiService.loadingStateChanged.next(false);
-      this.snackBar.open(
-        'User logged in successfully', 
-        'Close', 
-        { duration: 2000}
-      );
+      this.uiService.showErrorSnackbar('User logged in successfully', 'Close', 2000);
     })
     .catch(error => {
       this.uiService.loadingStateChanged.next(false);
-      this.showErrorSnackbar(error.message || 'An unknown error occurred!');
+      this.uiService.showErrorSnackbar(error.message, 'Close', 2000);
       console.log("🚀 ~ AuthService ~ login ~ error:", error)
     });
   }
@@ -86,19 +78,6 @@ export class AuthService {
 
   logout(){
     this.afAuth.signOut(); // get rid of the token
-    this.snackBar.open(
-      'User logged out successfully', 
-      'Close', 
-      { duration: 2000}
-    );
-  }
-
-  showErrorSnackbar(message: string) {
-    this.snackBar.open(message, 'Dismiss', {
-      duration: 3000, // Duration in milliseconds
-      horizontalPosition: 'center', // Positioning
-      verticalPosition: 'bottom',
-      panelClass: ['error-snackbar'] // Custom CSS class for styling
-    });
+    this.uiService.showErrorSnackbar('User logged out successfully', 'Close', 2000);
   }
 }

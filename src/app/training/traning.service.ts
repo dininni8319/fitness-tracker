@@ -3,12 +3,16 @@ import { Injectable } from "@angular/core";
 import { Subject, Subscription } from "rxjs";
 import { map } from 'rxjs/operators';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { UIService } from "../shared/ui.service";
 
 @Injectable()
 export class TrainingService {
   private exerciseSubscriptions: Subscription[] = [];
 
-  constructor(private db: AngularFirestore) {}
+  constructor(
+    private db: AngularFirestore,
+    private uiService: UIService
+  ) {}
   fineshedExercisesChanged = new Subject<Exercise[] | null>();
   exerciseChanged = new Subject<Exercise | null>();
   exercisesChanged = new Subject<Exercise[] | null>();
@@ -41,6 +45,8 @@ export class TrainingService {
           this.exercisesChanged.next([...this.availableExercises]);
         },
         (error: any) => {
+           this.uiService.loadingStateChanged.next(false);
+           this.uiService.showErrorSnackbar('Fetching available exercises failed, please try again later', 'Close', 3000);
           // console.error('Error fetching available exercises:', error);
           // Handle the error appropriately (e.g., show an error message to the user)
         }
