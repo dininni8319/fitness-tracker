@@ -47,7 +47,8 @@ export class TrainingService {
         (error: any) => {
            this.uiService.loadingStateChanged.next(false);
            this.uiService.showErrorSnackbar('Fetching available exercises failed, please try again later', 'Close', 3000);
-          // console.error('Error fetching available exercises:', error);
+           this.exercisesChanged.next(null);
+           // console.error('Error fetching available exercises:', error);
           // Handle the error appropriately (e.g., show an error message to the user)
         }
       ))

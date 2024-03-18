@@ -9,7 +9,7 @@ import {
 import { TrainingService } from '../traning.service';
 import { Exercise } from '../exercise.model';
 import { NgForm } from '@angular/forms';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 @Injectable()
 @Component({
@@ -41,10 +41,16 @@ export class NewTraningComponent implements OnInit, OnDestroy {
         this.isLoading = false
       }
     );
-    this.traningService.fetchAvailableExercises();
+    this.fetchExercises();
   }
 
   ngOnDestroy() {
-    this.exerciseSubscription.unsubscribe();
+    if (this.exerciseSubscription) {
+      this.exerciseSubscription.unsubscribe();
+    }
+  }
+
+  fetchExercises() {
+    this.traningService.fetchAvailableExercises();
   }
 }

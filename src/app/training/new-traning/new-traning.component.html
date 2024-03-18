@@ -3,7 +3,7 @@
     <mat-card>
       <mat-card-title class="space">Time to start a workout!</mat-card-title>
       <mat-card-content>
-        <mat-form-field *ngIf="!isLoading">
+        <mat-form-field *ngIf="!isLoading && exercises">
           <mat-select 
              placeholder="Choose Exercises" 
              class="new-training" 
@@ -11,23 +11,22 @@
              required 
              name="exercise"
           >
-            
             <mat-option *ngFor="let exercise of exercises" [value]="exercise.id">
               {{ exercise.name }}
             </mat-option>
           </mat-select>
         </mat-form-field>
         <mat-spinner
-          class="new-training " 
+          class="new-training" 
           *ngIf="isLoading"
           [diameter]="200"
           [strokeWidth]="4"
         ></mat-spinner>
       </mat-card-content>
       <mat-card-actions *ngIf="!isLoading" class="new-training">
-        <button type="submit" mat-button [disabled]="f.invalid">Start</button>
+        <button *ngIf="exercises" type="submit" mat-button [disabled]="f.invalid">Start</button>
+        <button *ngIf="!exercises" type="button" mat-button (click)="fetchExercises()">Fetch Again</button>
       </mat-card-actions>
     </mat-card>
-  
   </form>
 </section>
