@@ -31,13 +31,13 @@
       type="submit" 
       mat-raised-button 
       color="primary"
-      *ngIf="!isLoading"
+      *ngIf="!isLoading$"
       [disabled]="loginForm.invalid"
     >
     Login
   </button>
   <mat-spinner
-    *ngIf="isLoading"
+    *ngIf="isLoading$ | async"
     [diameter]="30"
     [strokeWidth]="4"
     color="white"

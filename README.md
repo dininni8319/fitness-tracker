@@ -28,3 +28,4 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ## Commands
 - npm install --save rxjs-compat  In order to use Angularfire, we will need to install rsjs-compat 
+- ng add @ngrx/store                     Adds ngrx store to application
