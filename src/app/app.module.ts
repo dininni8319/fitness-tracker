@@ -20,7 +20,7 @@ import { AuthService } from './auth/auth.service';
 import { TrainingService } from './training/traning.service';
 import { UIService } from './shared/ui.service';
 import { StoreModule } from '@ngrx/store';
-import { appReducer } from './app.reducer';
+import { reducers } from './app.reducer';
 
 @NgModule({
   declarations: [
@@ -37,7 +37,7 @@ import { appReducer } from './app.reducer';
     BrowserAnimationsModule, 
     MaterialModule,
     AngularFireModule.initializeApp(environment.firebaseConfig), // initialize the firebase app
-    AuthModule, StoreModule.forRoot({ui: appReducer}),
+    AuthModule, StoreModule.forRoot(reducers),
   ],
   providers: [AuthService, TrainingService, UIService],
   bootstrap: [AppComponent]

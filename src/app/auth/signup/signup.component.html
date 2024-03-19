@@ -50,12 +50,12 @@
       class="btn-singup-form" 
       type="submit" 
       mat-raised-button
-      *ngIf="!isLoading"
+      *ngIf="!(isLoading$ | async)"
       color="primary">
       Submit
     </button>
     <mat-spinner
-      *ngIf="isLoading"
+      *ngIf="isLoading$ | async"
       [diameter]="30"
       [strokeWidth]="4"
       color="white"

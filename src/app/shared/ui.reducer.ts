@@ -25,5 +25,5 @@ export function uiReducer(state = initialState, action: UIActions) {
   }
 }
 
-// Selectors
+// Selectors are helper functions that allow us to extract data from the state.
 export const getIsLoading = (state: State) => state.isLoading;

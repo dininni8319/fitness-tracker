@@ -31,7 +31,7 @@
       type="submit" 
       mat-raised-button 
       color="primary"
-      *ngIf="!isLoading$"
+      *ngIf="!(isLoading$ | async)"
       [disabled]="loginForm.invalid"
     >
     Login

@@ -4,7 +4,7 @@ import { AuthService } from '../auth.service';
 import { UIService } from 'src/app/shared/ui.service';
 import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
-import * as fromApp from '../../app.reducer';
+import * as fromRoot from '../../app.reducer';
 
 
 @Component({
@@ -20,15 +20,12 @@ export class LoginComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private uiService: UIService,
-    private store: Store<{ui:fromApp.State}> // to access the state of the redux store
+    private store: Store<{ui:fromRoot.State}> // to access the state of the redux store
   ) {};
 
   ngOnInit(): void {
-    this.isLoading$ = this.store.select(
-      state => state.ui.isLoading
-    )
+    this.isLoading$ = this.store.select(fromRoot.getIsLoading);
   
-    
     // this.store.subscribe(data => console.log(data))
       
       // this.loadingSubs = this.uiService.loadingStateChanged.subscribe(isLoading => {

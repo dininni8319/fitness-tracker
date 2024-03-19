@@ -10,6 +10,10 @@ import { TrainingService } from '../traning.service';
 import { Exercise } from '../exercise.model';
 import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { Store } from '@ngrx/store';
+import * as fromRoot from '../../app.reducer';
+import * as UI from '../../shared/ui.actions';
+import { Observable } from 'rxjs-compat';
 
 @Injectable()
 @Component({
@@ -21,8 +25,12 @@ import { Subscription } from 'rxjs';
 export class NewTraningComponent implements OnInit, OnDestroy {
   exercises!:Exercise[] | null;
   exerciseSubscription: Subscription = new Subscription();
-  isLoading = true;
-  constructor(private traningService: TrainingService) {};
+  isLoading$: Observable<boolean> | undefined;
+
+  constructor(
+    private traningService: TrainingService,
+    private store: Store<{ui: fromRoot.State}>
+  ) {};
 
   @Output() trainingStart = new EventEmitter<void>();
 
@@ -38,7 +46,7 @@ export class NewTraningComponent implements OnInit, OnDestroy {
     this.exerciseSubscription = this.traningService.exercisesChanged.subscribe(
       exercises => {
         this.exercises = exercises
-        this.isLoading = false
+        this.isLoading$ = this.store.select(fromRoot.getIsLoading)
       }
     );
     this.fetchExercises();

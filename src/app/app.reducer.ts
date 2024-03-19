@@ -1,5 +1,5 @@
 import * as fromUi from './shared/ui.reducer';
-import { ActionReducerMap } from '@ngrx/store';
+import { ActionReducerMap, createFeatureSelector, createSelector } from '@ngrx/store';
 import { UIActions } from './shared/ui.actions';
 
 
@@ -11,3 +11,7 @@ export interface State {
 export const reducers: ActionReducerMap<State, UIActions> = { 
   ui: fromUi.uiReducer, // this is a function that returns the reducer
 }
+
+export const getUiState = createFeatureSelector<fromUi.State>('ui')// this is a selector that returns the ui state
+// this is a selector that returns the isLoading property from the ui state
+export const getIsLoading = createSelector(getUiState, fromUi.getIsLoading) // useful for accessing in the components
