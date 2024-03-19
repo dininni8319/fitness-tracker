@@ -1,18 +1,13 @@
+import * as fromUi from './shared/ui.reducer';
+import { ActionReducerMap } from '@ngrx/store';
+import { UIActions } from './shared/ui.actions';
+
+
+// we inform on how the states of the app look like
 export interface State {
-  isLoading: boolean;
+  ui: fromUi.State;
 }
 
-const initialState: State = {
-  isLoading: false,
-}
-
-export function appReducer(state = initialState, action: any) {
-  switch(action.type) {
-    case "START_LOADING":
-      return { ...state, isLoading: true };
-    case "STOP_LOADING":
-      return { ...state, isLoading: false };
-    default:
-      return state;
-  }
+export const reducers: ActionReducerMap<State, UIActions> = { 
+  ui: fromUi.uiReducer, // this is a function that returns the reducer
 }
