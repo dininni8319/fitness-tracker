@@ -13,7 +13,7 @@ import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import * as fromRoot from '../../app.reducer';
 import * as UI from '../../shared/ui.actions';
-import { Observable } from 'rxjs-compat';
+import { Observable } from 'rxjs'
 
 @Injectable()
 @Component({
