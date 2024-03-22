@@ -6,7 +6,7 @@ import {
    OnDestroy
 } from '@angular/core';
 import { DeviceDetectorService } from 'ngx-device-detector';
-// import { AuthService } from 'src/app/auth/auth.service';
+import { AuthService } from 'src/app/auth/auth.service';
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import * as fromRoot from '../../app.reducer';
@@ -18,24 +18,23 @@ import { Observable } from 'rxjs-compat';
   styleUrls: ['./header.component.css']
 })
 
-export class HeaderComponent implements OnInit, OnDestroy {
+export class HeaderComponent implements OnInit {
   isDesktop = false;
-  isAuth$: Observable<boolean> = false;
+  isAuth$: Observable<boolean> | undefined;
   authSubscripion!: Subscription;
   @Output() sidenavToggle = new EventEmitter<void>()
 
   constructor(
     private deviceService: DeviceDetectorService,
-    // private authService: AuthService,
+    private authService: AuthService,
     private store: Store<{ui: fromRoot.State}>
   ) {
     this.checkDevice();
   };
 
   ngOnInit() {
-    this.store.select(fromRoot.getIsAuth).subscribe(isAuth => {
-       this.isAuth$ = isAuth;
-    })
+        
+    this.isAuth$ = this.store.select(fromRoot.getIsAuth);
     // this.authService.authChange.subscribe(authStatus => {
     //   this.isAtuh = authStatus;
     // });
@@ -50,11 +49,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.isDesktop = this.deviceService.isDesktop();
   }
 
-  // onLogout() {
-  //   this.authService.logout();
-  // }
-
-  ngOnDestroy(): void {
-    this.authSubscripion.unsubscribe();  // clears up unneeded memory
+  onLogout() {
+    this.authService.logout();
   }
+
+  // ngOnDestroy(): void {
+  //   this.authSubscripion.unsubscribe();  // clears up unneeded memory
+  // }
 }
