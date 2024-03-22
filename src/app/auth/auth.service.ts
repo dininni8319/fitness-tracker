@@ -1,20 +1,22 @@
 import { Injectable } from "@angular/core";
 import { AuthData } from "./auth-data.model";
 import { User } from "./user.model";
-import { Subject } from "rxjs";
+// import { Subject } from "rxjs";
 import { Router } from "@angular/router";
 import { AngularFireAuth } from "@angular/fire/compat/auth";
 import { TrainingService } from "../training/traning.service";
-import { MatSnackBar } from "@angular/material/snack-bar";
+// import { MatSnackBar } from "@angular/material/snack-bar";
 import { UIService } from "../shared/ui.service";
 import { Store } from "@ngrx/store"; 
 import * as fromRoot from '../app.reducer';
 import * as UI from '../shared/ui.actions';
+import * as Auth from './auth.actions';
+
 
 @Injectable()
 export class AuthService {
-  authChange = new Subject<boolean>(); // Observable for notifying about changes in authentication status
-  private isAuthenticated = false;
+  // authChange = new Subject<boolean>(); // Observable for notifying about changes in authentication status
+  // private isAuthenticated = false;
 
   constructor(
     private router: Router,
@@ -27,14 +29,14 @@ export class AuthService {
   initAuthListener() {
     this.afAuth.authState.subscribe(user => {
       if (user) {
-        this.isAuthenticated = true;
-        this.authChange.next(true); // notify about change in authentication status 
+        this.store.dispatch(new Auth.SetAuthenticated());
+        // this.authChange.next(true); // notify about change in authentication status 
         this.router.navigate(['/training']); // redirect to training page after registration
       } else {
         this.trainingService.cancelSubscriptions();
-        this.authChange.next(false);
+        // this.authChange.next(false);
         this.router.navigate(['/login']);
-        this.isAuthenticated = false;
+        this.store.dispatch(new Auth.SetUnauthenticated());
       }
     });
   }
@@ -82,9 +84,9 @@ export class AuthService {
     });
   }
 
-  isAuth() {
-    return this.isAuthenticated;
-  }
+  // isAuth() {
+  //   return this.isAuthenticated;
+  // }
 
   logout(){
     this.afAuth.signOut(); // get rid of the token

@@ -3,7 +3,7 @@
     <mat-card>
       <mat-card-title class="space">Time to start a workout!</mat-card-title>
       <mat-card-content>
-        <mat-form-field *ngIf="!isLoading$">
+        <mat-form-field *ngIf="!(isLoading$ | async)">
           <mat-select 
              placeholder="Choose Exercises" 
              class="new-training" 
