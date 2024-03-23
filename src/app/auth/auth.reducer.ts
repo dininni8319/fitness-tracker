@@ -1,5 +1,4 @@
 import { AuthActions, SET_AUTHENTICATED, SET_UNAUTHENTICATED } from './auth.actions';
-import { Action } from '@ngrx/store';
 
 export interface State {
   isAuthenticated: boolean;

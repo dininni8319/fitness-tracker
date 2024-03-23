@@ -12,7 +12,12 @@ export interface State {
   auth: fromAuth.State;
 }
 
-export const reducers: ActionReducerMap<State, UIActions | AuthActions> = { 
+// export type Action = {
+//  ui: UIActions,
+//  auth: AuthActions
+// } 
+
+export const reducers: ActionReducerMap<State, any> = { 
   ui: fromUi.uiReducer, // this is a function that returns the reducer
   auth: fromAuth.authReducer
 }

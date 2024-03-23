@@ -10,7 +10,7 @@ import { AuthService } from 'src/app/auth/auth.service';
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import * as fromRoot from '../../app.reducer';
-import { Observable } from 'rxjs-compat';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-header',

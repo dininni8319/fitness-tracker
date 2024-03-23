@@ -6,9 +6,9 @@
     <div>Fitness Tracker</div>
   </div>
   <div class="nav-links-container" *appIsDesktop>
-    <a *ngIf="!isAtuh" routerLink="/signup">Signup</a>
-    <a *ngIf="!isAtuh" routerLink="/login">Login</a>
-    <a *ngIf="isAtuh" routerLink="/training">Training</a>
-    <a *ngIf="isAtuh" style="cursor: pointer;" (click)="onLogout()" routerLink="/logout">Logout</a>
+    <a *ngIf="!(isAuth$ | async)" routerLink="/signup">Signup</a>
+    <a *ngIf="!(isAuth$ | async)" routerLink="/login">Login</a>
+    <a *ngIf="(isAuth$ | async)" routerLink="/training">Training</a>
+    <a *ngIf="(isAuth$ | async)" style="cursor: pointer;" (click)="onLogout()" routerLink="/logout">Logout</a>
   </div>
 </mat-toolbar>

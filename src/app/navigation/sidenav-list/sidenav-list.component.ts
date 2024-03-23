@@ -17,7 +17,7 @@ import * as fromRoot from '../../app.reducer';
 
 export class SidenavListComponent implements OnInit {
   @Output() sidenavClose = new EventEmitter<void>()
-  isAuth$: boolean | undefined = false;
+  isAuth$: Observable<boolean> | undefined;
   authSubscription!: Subscription
 
   onClose() {
