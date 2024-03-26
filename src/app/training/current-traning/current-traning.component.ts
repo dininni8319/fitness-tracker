@@ -14,7 +14,7 @@ import { take } from 'rxjs/operators';
 
 export class CurrentTraningComponent implements OnInit {
   progress = 0;
-  timer: number = 0;
+  timer: any = 0;
 
   constructor(
     private dialog: MatDialog,
