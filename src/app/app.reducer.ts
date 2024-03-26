@@ -2,9 +2,6 @@ import * as fromUi from './shared/ui.reducer';
 import * as fromAuth from './auth/auth.reducer';
 
 import { ActionReducerMap, createFeatureSelector, createSelector } from '@ngrx/store';
-import { UIActions } from './shared/ui.actions';
-import { AuthActions } from './auth/auth.actions';
-
 
 // we inform on how the states of the app look like
 export interface State {
@@ -12,10 +9,6 @@ export interface State {
   auth: fromAuth.State;
 }
 
-// export type Action = {
-//  ui: UIActions,
-//  auth: AuthActions
-// } 
 
 export const reducers: ActionReducerMap<State, any> = { 
   ui: fromUi.uiReducer, // this is a function that returns the reducer

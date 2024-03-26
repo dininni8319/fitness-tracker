@@ -4,15 +4,13 @@ import {
   Output, 
   OnInit, 
   Injectable,
-  OnDestroy
 } from '@angular/core';
 import { TrainingService } from '../traning.service';
 import { Exercise } from '../exercise.model';
 import { NgForm } from '@angular/forms';
-import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
+import * as fromTraining from '../training.reducer';
 import * as fromRoot from '../../app.reducer';
-import * as UI from '../../shared/ui.actions';
 import { Observable } from 'rxjs'
 
 @Injectable()
@@ -22,43 +20,26 @@ import { Observable } from 'rxjs'
   styleUrls: ['./new-traning.component.css']
 })
 
-export class NewTraningComponent implements OnInit, OnDestroy {
-  exercises!:Exercise[] | null;
-  exerciseSubscription: Subscription = new Subscription();
+export class NewTraningComponent implements OnInit {
+  exercises$!: Observable<Exercise[] | null>;
   isLoading$: Observable<boolean> | undefined;
 
   constructor(
     private traningService: TrainingService,
-    private store: Store<{ui: fromRoot.State}>
+    private store: Store<fromTraining.State>
   ) {};
 
   @Output() trainingStart = new EventEmitter<void>();
 
   onStartTraining(form: NgForm) {
-    console.log(form.value.exercise);
-    
     this.traningService.startExercise(form.value.exercise); // passing to the service
   }
   
   ngOnInit(): void { 
-    // get the data from firestore db     
-    //valueChanges give us an observable
-    this.exerciseSubscription = this.traningService.exercisesChanged.subscribe(
-      exercises => {
-        this.exercises = exercises
-      }
-      );
+    this.exercises$ = this.store.select(fromTraining.getAvailableExercises);
     this.isLoading$ = this.store.select(fromRoot.getIsLoading)
-    console.log('====================================');
-    console.log(this.isLoading$);
-    console.log('====================================');
+   
     this.fetchExercises();
-  }
-
-  ngOnDestroy() {
-    if (this.exerciseSubscription) {
-      this.exerciseSubscription.unsubscribe();
-    }
   }
 
   fetchExercises() {

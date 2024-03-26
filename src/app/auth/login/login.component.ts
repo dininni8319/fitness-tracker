@@ -25,19 +25,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.isLoading$ = this.store.select(fromRoot.getIsLoading);
-  
-    // this.store.subscribe(data => console.log(data))
-      
-      // this.loadingSubs = this.uiService.loadingStateChanged.subscribe(isLoading => {
-      //   this.isLoading = isLoading;
-      // })
   }
-
-  // ngOnDestroy(): void {
-  //   // if (this.loadingSubs) {
-  //   //   this.loadingSubs.unsubscribe();
-  //   //  } 
-  // }
 
   loginForm = new FormGroup({
     email: new FormControl('', [
@@ -50,7 +38,6 @@ export class LoginComponent implements OnInit {
   })
 
   onSubmit() {
-    // this.isLoading = true;
     const email = this.loginForm.value.email ?? ''; // Assign an empty string if email is undefined or null
     const password = this.loginForm.value.password ?? ''; // Assign an empty string if password is undefined or null
     this.authService.login({

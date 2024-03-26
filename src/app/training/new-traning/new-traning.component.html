@@ -11,7 +11,7 @@
              required 
              name="exercise"
           >
-            <mat-option *ngFor="let exercise of exercises" [value]="exercise.id">
+            <mat-option *ngFor="let exercise of exercises$ | async" [value]="exercise.id">
               {{ exercise.name }}
             </mat-option>
           </mat-select>
@@ -24,8 +24,8 @@
         ></mat-spinner>
       </mat-card-content>
       <mat-card-actions *ngIf="!(isLoading$ | async)" class="new-training">
-        <button *ngIf="exercises" type="submit" mat-button [disabled]="f.invalid">Start</button>
-        <button *ngIf="!exercises" type="button" mat-button (click)="fetchExercises()">Fetch Again</button>
+        <button *ngIf="exercises$ | async" type="submit" mat-button [disabled]="f.invalid" [ngClass]="{'btn-primary': f.valid}">Start</button>
+        <button *ngIf="!(exercises$ | async)" type="button" mat-button (click)="fetchExercises()">Fetch Again</button>
       </mat-card-actions>
     </mat-card>
   </form>

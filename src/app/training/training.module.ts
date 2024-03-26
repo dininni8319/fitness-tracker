@@ -7,6 +7,8 @@ import { PastTrainingComponent } from "./past-training/past-training.component";
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { SharedModule } from "../shared/shared.module";
 import { TrainingRoutingModule } from "./training-routing.module";
+import { StoreModule } from "@ngrx/store";
+import { trainingReducer } from "./training.reducer";
 
 @NgModule({
   declarations: [
@@ -19,7 +21,8 @@ import { TrainingRoutingModule } from "./training-routing.module";
   imports: [
     AngularFirestoreModule,
     SharedModule,
-    TrainingRoutingModule
+    TrainingRoutingModule,
+    StoreModule.forFeature('training', trainingReducer) //load the training reducer into the store lazy-loaded module.
   ],
   exports: []
 })

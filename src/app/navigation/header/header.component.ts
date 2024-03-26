@@ -34,11 +34,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
         
-    this.isAuth$ = this.store.select(fromRoot.getIsAuth);
-    // this.authService.authChange.subscribe(authStatus => {
-    //   this.isAtuh = authStatus;
-    // });
-    
+    this.isAuth$ = this.store.select(fromRoot.getIsAuth);   
   }
 
   onToggleSidenav() {
@@ -52,8 +48,4 @@ export class HeaderComponent implements OnInit {
   onLogout() {
     this.authService.logout();
   }
-
-  // ngOnDestroy(): void {
-  //   this.authSubscripion.unsubscribe();  // clears up unneeded memory
-  // }
 }
